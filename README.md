@@ -56,3 +56,12 @@ stakeReputation(uint256, string) — for staking reputation
 🧠 Concept Highlight
 
 This project demonstrates trustless identity verification — a foundational concept for Web3 social, DAO governance, and decentralized job marketplaces.
+
+Contracts Details : 0x92D5Ed3bB8E27a12F96dE1E8aCDdaa3fc47A9fe2
+
+
+<img width="1912" height="902" alt="image" src="https://github.com/user-attachments/assets/c2372335-4f95-4da2-80c0-d1c0558c8472" />
+
+
+
+
