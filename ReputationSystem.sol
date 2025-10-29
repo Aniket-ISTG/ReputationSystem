@@ -18,6 +18,7 @@ contract ReputationSystem {
     event Registered(address indexed user);
     event AchievementVerified(address indexed user, string achievement, uint256 reputationGained);
     event ReputationStaked(address indexed user, uint256 amount, string reason);
+    event ReputationReduced(address indexed user, uint256 amount, string reason);
 
     modifier onlyAdmin() {
         require(msg.sender == admin, "Only admin can call this");
@@ -54,5 +55,23 @@ contract ReputationSystem {
         users[msg.sender].reputation -= amount; // Burn staked rep if they cheat (simplified)
         emit ReputationStaked(msg.sender, amount, reason);
     }
-}
 
+    /// @notice Allows anyone to view the reputation score of a user
+    /// @param user The address of the user
+    /// @return The reputation score of that user
+    function getReputation(address user) external view returns (uint256) {
+        require(users[user].registered, "User not registered");
+        return users[user].reputation;
+    }
+
+    /// @notice Admin can reduce reputation for cheating or misconduct
+    /// @param user The address of the user to penalize
+    /// @param amount The amount of reputation to deduct
+    /// @param reason The reason for reduction
+    function reduceReputation(address user, uint256 amount, string memory reason) external onlyAdmin {
+        require(users[user].registered, "User not registered");
+        require(users[user].reputation >= amount, "Insufficient reputation to reduce");
+        users[user].reputation -= amount;
+        emit ReputationReduced(user, amount, reason);
+    }
+}
