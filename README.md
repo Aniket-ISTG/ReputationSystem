@@ -31,6 +31,26 @@ Multi-chain reputation tracking (Polygon, Arbitrum, CoreDAO, etc.).
 Decentralized governance for verifying new organizers and removing the central admin.
 Integration with decentralized identity standards (DIDs, ENS, Ceramic).
 
+
+🆕 Added Features
+🔄 1. Peer-to-Peer Reputation Transfer
+Users can endorse others by transferring part of their reputation.
+Sender must be registered and have enough reputation.
+Receiver must be registered.
+Transfers cannot exceed sender’s current reputation.
+📜 Emits:
+✅ Use Case:
+Reward collaborators.
+Build Web3 trust through endorsements.
+Enable “Reputation Economy” inside dApps.
+
+🏅 2. Leaderboard of Top Users
+Returns the top N users with the highest reputation.
+✅ Use Case:
+Display top contributors on frontend.
+Run reputation-based competitions.
+Showcase verified achievers in your ecosystem.
+
 🛠️ Tech Stack
 
 Solidity — Smart contract logic
