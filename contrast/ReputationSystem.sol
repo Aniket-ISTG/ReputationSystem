@@ -7,6 +7,7 @@ pragma solidity ^0.8.20;
  * @dev Designed for educational/hackathon demonstration purposes.
  */
 contract ReputationSystem {
+    address[] public allUsers;
     struct User {
         uint256 reputation;
         bool registered;
@@ -16,6 +17,7 @@ contract ReputationSystem {
     address public admin;
 
     event Registered(address indexed user);
+    event ReputationTransferred(address indexed from, address indexed to, uint256 amount);
     event AchievementVerified(address indexed user, string achievement, uint256 reputationGained);
     event ReputationStaked(address indexed user, uint256 amount, string reason);
     event ReputationReduced(address indexed user, uint256 amount, string reason);
@@ -74,4 +76,39 @@ contract ReputationSystem {
         users[user].reputation -= amount;
         emit ReputationReduced(user, amount, reason);
     }
+
+    function getTopUsers(uint256 limit) external view returns (address[] memory topUsers) {
+        require(limit > 0, "Limit must be greater than zero");
+        uint256 n = allUsers.length;
+        if (limit > n) limit = n;
+
+        // Simple selection sort (O(n²)) — good for small sets / demo
+        address[] memory usersCopy = allUsers;
+        for (uint256 i = 0; i < limit; i++) {
+            for (uint256 j = i + 1; j < n; j++) {
+                if (users[usersCopy[j]].reputation > users[usersCopy[i]].reputation) {
+                    address temp = usersCopy[i];
+                    usersCopy[i] = usersCopy[j];
+                    usersCopy[j] = temp;
+                }
+            }
+        }
+
+        topUsers = new address[](limit);
+        for (uint256 i = 0; i < limit; i++) {
+            topUsers[i] = usersCopy[i];
+        }
+    }
+
+    function transferReputation(address to, uint256 amount) external {
+        require(users[msg.sender].registered, "Sender not registered");
+        require(users[to].registered, "Recipient not registered");
+        require(users[msg.sender].reputation >= amount, "Not enough reputation");
+
+        users[msg.sender].reputation -= amount;
+        users[to].reputation += amount;
+
+        emit ReputationTransferred(msg.sender, to, amount);
+    }
+
 }
