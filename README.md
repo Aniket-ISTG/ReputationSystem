@@ -73,7 +73,7 @@ register() — for user registration
 verifyAchievement(address, string, uint256) — for admin to verify achievements
 stakeReputation(uint256, string) — for staking reputation
 
-🧠 Concept Highlight
+🧠 Concept Highlight - a great start 
 
 This project demonstrates trustless identity verification — a foundational concept for Web3 social, DAO governance, and decentralized job marketplaces.
 
